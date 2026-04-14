@@ -1,4 +1,4 @@
-import random (Productos.py)
+import random
 def simular_productos(numeroSimulaciones):
 
     #semillas por cada atributo de mi tabla
@@ -13,7 +13,7 @@ def simular_productos(numeroSimulaciones):
     disponibilidades=[True, False]
     precios=["5000","7500","6500", "3900", "4900", "8000"]
     requiere_preparacion=[True, False]
-    tiempo_preparacion=[, 30, 45, 60, 90]
+    tiempo_preparacion=[0, 30, 45, 60, 90]
     categorias_id=["01", "02", "03", "04", "05"]
     productos=[]
 
