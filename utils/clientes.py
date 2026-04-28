@@ -14,7 +14,6 @@ def simular_clientes(numeroSimulaciones):
     correo = ["ale@alejo.com", "elbro@superprogramador.com", "burro@gmail.com", "viejoriqui@gmail.com", "prueba@prueba.com"]
     notas = ["n/a"]
     tipo_documentos = ["cc", "ti", "pasaporte"]
-    # Corregido el error de la coma en numero_identificacion
     numero_identificacion = ["12345", "67890", "54321", "09876", "11223", "44556"]
     puntos = [10, 30, 45, 60, 90]
     telefonos = ["4446589", "4446658", "4446478", "4446214", "4446587"]
@@ -50,10 +49,9 @@ def simular_clientes(numeroSimulaciones):
             cliente["fecha_actualizacion"] = None
         elif probabilidadError < 0.8:
             cliente["direccion"] = random.choice(["usa", "canada", "mexico"])
-        else: # Corregido el elif() vacío
+        else:
             cliente["telefono"] = random.choice(["543", "128495", "++9574"])
                 
         clientes.append(cliente)
         
     return clientes
-
