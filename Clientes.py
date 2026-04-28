@@ -1,5 +1,5 @@
 import random
-def simular_productos(numeroSimulaciones):
+def simular_clientes(numeroSimulaciones):
 
     #semillas por cada atributo de mi tabla
     identificadores=["01","02", "03","04","05"]
