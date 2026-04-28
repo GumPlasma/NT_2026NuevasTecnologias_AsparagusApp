@@ -1,37 +1,58 @@
 import random
-def simular_productos(numeroSimulaciones):
+from datetime import datetime, timedelta
 
-    #semillas por cada atributo de mi tabla
-    identificadores=["01","02", "03","04","05"]
-    estados=["activo","activo", "activo", "activo", "activo"]
-    fechas_actualizaciones=["2026-02-01","2026-02-10","2026-02-08","2026-03-01","2026-03-08"]
-    fechas_creacion=["2026-01-01","2026-01-01","2026-01-01","2026-01-01","2026-01-01"]
-    codigos=["res01","res02","res03","res04","res05"]
-    nombres=["sopa","frijoles","arroz","ensalada","carne"]
-    costos=["1000","2500","1500","900","3000"]
-    descripciones=["Rica Sopa","Deliosos Frijoles","Excelnte Arroz","Ensalasa Peye","Carne tres cuarros"]
-    disponibilidades=[True, False]
-    precios=["5000","7500","6500", "3900", "4900", "8000"]
-    requiere_preparacion=[True, False]
-    tiempo_preparacion=[0, 30, 45, 60, 90]
-    categorias_id=["01", "02", "03", "04", "05"]
-    productos=[]
+def simular_productos(numeroSimulaciones):
+    # Semillas de datos
+    identificadores = ["01", "02", "03", "04", "05"]
+    estados = ["activo"] * 5
+    fechas_actualizaciones = ["2026-02-01", "2026-02-10", "2026-02-08", "2026-03-01", "2026-03-08"]
+    fechas_creacion = ["2026-01-01"]
+    nombre = ["Alejandro", "Elbro", "Gustavo", "Ricardo", "Pedro"]
+    apellidos = ["Gallego", "Arroyave", "Rendon", "Jimemez", "Alvarez"]
+    programa_frecuentes = [True, False]
+    direccion = ["Belen", "Aranjuez", "Guayabal", "Laureles", "Envigado"]
+    correo = ["ale@alejo.com", "elbro@superprogramador.com", "burro@gmail.com", "viejoriqui@gmail.com", "prueba@prueba.com"]
+    notas = ["n/a"]
+    tipo_documentos = ["cc", "ti", "pasaporte"]
+    # Corregido el error de la coma en numero_identificacion
+    numero_identificacion = ["12345", "67890", "54321", "09876", "11223", "44556"]
+    puntos = [10, 30, 45, 60, 90]
+    telefonos = ["4446589", "4446658", "4446478", "4446214", "4446587"]
+    
+    clientes = []
 
     for _ in range(numeroSimulaciones):
-        producto= {
+        cliente = {
             "id": random.choice(identificadores),
             "activo": random.choice(estados),
             "fecha_actualizacion": random.choice(fechas_actualizaciones),
             "fecha_creacion": random.choice(fechas_creacion),
-            "codigo": random.choice(codigos),
-            "costo": random.choice(costos),
-            "descripcion": random.choice(descripciones),
-            "disponible": random.choice(disponibilidades),
-            "nombre": random.choice(nombres),
-            "precio": random.choice(precios),
-            "requiere_preparacion": random.choice(requiere_preparacion),
-            "tiempo_preparacion": random.choice(tiempo_preparacion),
-            "categoria_id": random.choice(categorias_id),       
+            "apellido": random.choice(apellidos),
+            "cliente_frecuente": random.choice(programa_frecuentes),
+            "direccion": random.choice(direccion),
+            "e-mail": random.choice(correo),
+            "nombre": random.choice(nombre),
+            "nota": random.choice(notas),
+            "numero_documento": random.choice(numero_identificacion),
+            "punto": random.choice(puntos),
+            "telefono": random.choice(telefonos),
+            "tipo_documento": random.choice(tipo_documentos),
         }
-        productos.append(producto)
-    return productos
+
+        # Lógica de errores aleatorios
+        probabilidadError = random.random()
+        
+        if probabilidadError < 0.2:
+            cliente["id"] = None
+        elif probabilidadError < 0.4:
+            cliente["activo"] = None
+        elif probabilidadError < 0.6:
+            cliente["fecha_actualizacion"] = None
+        elif probabilidadError < 0.8:
+            cliente["direccion"] = random.choice(["usa", "canada", "mexico"])
+        else: # Corregido el elif() vacío
+            cliente["telefono"] = random.choice(["543", "128495", "++9574"])
+                
+        clientes.append(cliente)
+        
+    return clientes
