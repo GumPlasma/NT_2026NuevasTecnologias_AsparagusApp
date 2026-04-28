@@ -1,4 +1,5 @@
 import random
+from datetime import datetime, timedelta
 
 def simular_clientes(numeroSimulaciones):
     # Semillas de datos
