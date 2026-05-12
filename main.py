@@ -1,19 +1,32 @@
+"""Punto de entrada principal del proyecto AsparagusApp.
+
+Este script coordina la simulación, limpieza y descripción
+de datos para clientes, productos, usuarios y pedidos.
+"""
+
 import pandas as pd
 
-# Zona para importar simulaciones
-from utils.clientes import simular_clientes
-from utils.clientes_error import simular_clientes as simular_clientes_error
-from utils.productos import simular_productos
-from utils.usuarios import simular_usuarios_con_errores
-from utils.pedidos import simular_pedidos_con_errores
+# Simulación de datos
+from src.data_simulation.clientes import simular_clientes
+from src.data_simulation.clientes_error import simular_clientes as simular_clientes_error
+from src.data_simulation.productos import simular_productos
+from src.data_simulation.usuarios import simular_usuarios_con_errores
+from src.data_simulation.pedidos import simular_pedidos_con_errores
 
-# Zona para importar limpiezas
-from limpieza.limpieza import limpiar_clientes, limpiar_usuarios, limpiar_pedidos, limpiar_productos
+# Limpieza de datos
+from src.data_cleaning.cleaners import (
+    limpiar_clientes,
+    limpiar_productos,
+    limpiar_usuarios,
+    limpiar_pedidos,
+)
 
-# Zona para importar descripciones
-from limpieza.descripcion import describir_datos
+# Descripción de datos
+from src.data_description.descriptores import describir_datos
 
-if __name__ == "__main__":
+
+def main() -> None:
+    """Ejecuta el pipeline completo de datos."""
     n = 20
 
     # Clientes
@@ -42,27 +55,20 @@ if __name__ == "__main__":
     df_pedidos_limpio = limpiar_pedidos(df_pedidos)
 
     # Descripciones
-    print("=" * 50)
-    print("DESCRIPCIÓN CLIENTES")
-    print("=" * 50)
-    describir_datos(df_clientes_limpio)
+    datasets = {
+        "DESCRIPCIÓN CLIENTES": df_clientes_limpio,
+        "DESCRIPCIÓN CLIENTES CON ERROR": df_clientes_err_limpio,
+        "DESCRIPCIÓN PRODUCTOS": df_productos_limpio,
+        "DESCRIPCIÓN USUARIOS": df_usuarios_limpio,
+        "DESCRIPCIÓN PEDIDOS": df_pedidos_limpio,
+    }
 
-    print("\n" + "=" * 50)
-    print("DESCRIPCIÓN CLIENTES CON ERROR")
-    print("=" * 50)
-    describir_datos(df_clientes_err_limpio)
+    for titulo, df in datasets.items():
+        print("\n" + "=" * 50)
+        print(titulo)
+        print("=" * 50)
+        describir_datos(df)
 
-    print("\n" + "=" * 50)
-    print("DESCRIPCIÓN PRODUCTOS")
-    print("=" * 50)
-    describir_datos(df_productos_limpio)
 
-    print("\n" + "=" * 50)
-    print("DESCRIPCIÓN USUARIOS")
-    print("=" * 50)
-    describir_datos(df_usuarios_limpio)
-
-    print("\n" + "=" * 50)
-    print("DESCRIPCIÓN PEDIDOS")
-    print("=" * 50)
-    describir_datos(df_pedidos_limpio)
+if __name__ == "__main__":
+    main()
