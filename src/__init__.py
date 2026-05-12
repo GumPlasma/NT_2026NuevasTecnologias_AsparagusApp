@@ -1,1 +1,1 @@
-"""Paquete principal del proyecto AsparagusApp."""
+# paquete principal

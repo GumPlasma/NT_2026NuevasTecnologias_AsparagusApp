@@ -1,32 +1,26 @@
-"""Punto de entrada principal del proyecto AsparagusApp.
-
-Este script coordina la simulación, limpieza y descripción
-de datos para clientes, productos, usuarios y pedidos.
-"""
-
+# Punto de entrada principal del proyecto AsparagusApp
 import pandas as pd
 
-# Simulación de datos
-from src.data_simulation.clientes import simular_clientes
-from src.data_simulation.clientes_error import simular_clientes as simular_clientes_error
-from src.data_simulation.productos import simular_productos
-from src.data_simulation.usuarios import simular_usuarios_con_errores
-from src.data_simulation.pedidos import simular_pedidos_con_errores
+# Simulacion de datos
+from src.simulacion.clientes import simular_clientes
+from src.simulacion.clientes_erroneos import simular_clientes as simular_clientes_error
+from src.simulacion.productos import simular_productos
+from src.simulacion.usuarios import simular_usuarios_con_errores
+from src.simulacion.pedidos import simular_pedidos_con_errores
 
 # Limpieza de datos
-from src.data_cleaning.cleaners import (
+from src.limpieza.limpieza import (
     limpiar_clientes,
     limpiar_productos,
     limpiar_usuarios,
     limpiar_pedidos,
 )
 
-# Descripción de datos
-from src.data_description.descriptores import describir_datos
+# Descripcion de datos
+from src.descripcion.descripcion import describir_datos
 
 
-def main() -> None:
-    """Ejecuta el pipeline completo de datos."""
+def main():
     n = 20
 
     # Clientes
@@ -56,11 +50,11 @@ def main() -> None:
 
     # Descripciones
     datasets = {
-        "DESCRIPCIÓN CLIENTES": df_clientes_limpio,
-        "DESCRIPCIÓN CLIENTES CON ERROR": df_clientes_err_limpio,
-        "DESCRIPCIÓN PRODUCTOS": df_productos_limpio,
-        "DESCRIPCIÓN USUARIOS": df_usuarios_limpio,
-        "DESCRIPCIÓN PEDIDOS": df_pedidos_limpio,
+        "DESCRIPCION CLIENTES": df_clientes_limpio,
+        "DESCRIPCION CLIENTES CON ERROR": df_clientes_err_limpio,
+        "DESCRIPCION PRODUCTOS": df_productos_limpio,
+        "DESCRIPCION USUARIOS": df_usuarios_limpio,
+        "DESCRIPCION PEDIDOS": df_pedidos_limpio,
     }
 
     for titulo, df in datasets.items():

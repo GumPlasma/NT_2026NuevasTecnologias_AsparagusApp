@@ -1,1 +1,1 @@
-"""Módulos para el consumo de APIs externas."""
+# modulos para consumir apis

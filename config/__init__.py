@@ -1,1 +1,1 @@
-"""Configuración global del proyecto."""
+# configuracion del proyecto
