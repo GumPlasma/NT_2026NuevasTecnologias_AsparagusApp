@@ -1,67 +1,70 @@
 # Punto de entrada principal del proyecto AsparagusApp
 import pandas as pd
 
-# Simulacion de datos
-from src.simulacion.clientes import simular_clientes
-from src.simulacion.clientes_erroneos import simular_clientes as simular_clientes_error
-from src.simulacion.productos import simular_productos
-from src.simulacion.usuarios import simular_usuarios_con_errores
-from src.simulacion.pedidos import simular_pedidos_con_errores
-
-# Limpieza de datos
-from src.limpieza.limpieza import (
-    limpiar_clientes,
-    limpiar_productos,
-    limpiar_usuarios,
-    limpiar_pedidos,
+# Consumo de datos reales del backend POS
+from src.api.consumo_datos import (
+    obtener_clientes_backend,
+    obtener_productos_backend,
+    obtener_usuarios_backend,
+    obtener_ventas_backend,
 )
 
-# Descripcion de datos
-from src.descripcion.descripcion import describir_datos
+# Graficas con datos reales
+from src.visualizacion.graficas import (
+    graficar_clientes,
+    graficar_productos,
+    graficar_usuarios,
+    graficar_ventas,
+)
 
 
 def main():
-    n = 20
+    print("=" * 50)
+    print("CARGANDO DATOS DESDE EL BACKEND")
+    print("=" * 50)
 
-    # Clientes
-    clientes = simular_clientes(n)
-    df_clientes = pd.DataFrame(clientes)
-    df_clientes_limpio = limpiar_clientes(df_clientes)
+    # Se traen los datos reales de cada tabla del backend
+    df_clientes = obtener_clientes_backend()
+    df_productos = obtener_productos_backend()
+    df_usuarios = obtener_usuarios_backend()
+    df_ventas = obtener_ventas_backend()
 
-    # Clientes con error
-    clientes_err = simular_clientes_error(n)
-    df_clientes_err = pd.DataFrame(clientes_err)
-    df_clientes_err_limpio = limpiar_clientes(df_clientes_err)
-
-    # Productos
-    productos = simular_productos(n)
-    df_productos = pd.DataFrame(productos)
-    df_productos_limpio = limpiar_productos(df_productos)
-
-    # Usuarios
-    usuarios = simular_usuarios_con_errores(n)
-    df_usuarios = pd.DataFrame(usuarios)
-    df_usuarios_limpio = limpiar_usuarios(df_usuarios)
-
-    # Pedidos
-    pedidos = simular_pedidos_con_errores(n)
-    df_pedidos = pd.DataFrame(pedidos)
-    df_pedidos_limpio = limpiar_pedidos(df_pedidos)
-
-    # Descripciones
+    # Descripciones de los datasets reales
     datasets = {
-        "DESCRIPCION CLIENTES": df_clientes_limpio,
-        "DESCRIPCION CLIENTES CON ERROR": df_clientes_err_limpio,
-        "DESCRIPCION PRODUCTOS": df_productos_limpio,
-        "DESCRIPCION USUARIOS": df_usuarios_limpio,
-        "DESCRIPCION PEDIDOS": df_pedidos_limpio,
+        "CLIENTES DEL BACKEND": df_clientes,
+        "PRODUCTOS DEL BACKEND": df_productos,
+        "USUARIOS DEL BACKEND": df_usuarios,
+        "VENTAS DEL BACKEND": df_ventas,
     }
 
     for titulo, df in datasets.items():
         print("\n" + "=" * 50)
         print(titulo)
         print("=" * 50)
-        describir_datos(df)
+        if not df.empty:
+            print(f"Registros: {len(df)}, Columnas: {list(df.columns)}")
+            print(df.head())
+        else:
+            print("[AVISO] No se pudieron cargar datos para esta tabla")
+
+    # Generamos las graficas de las 4 tablas principales con datos reales
+    print("\n" + "=" * 50)
+    print("GENERANDO GRAFICAS CON DATOS REALES")
+    print("=" * 50)
+
+    if not df_clientes.empty:
+        graficar_clientes(df_clientes)
+
+    if not df_productos.empty:
+        graficar_productos(df_productos)
+
+    if not df_usuarios.empty:
+        graficar_usuarios(df_usuarios)
+
+    if not df_ventas.empty:
+        graficar_ventas(df_ventas)
+
+    print("\n[FIN] Proceso completado. Revisa la carpeta 'graficas/'.")
 
 
 if __name__ == "__main__":

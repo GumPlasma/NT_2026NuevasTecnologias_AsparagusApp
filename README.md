@@ -1,12 +1,12 @@
 # NT_2026NuevasTecnologias_AsparagusApp
 
-Repositorio para la materia de Nuevas Tecnologías.
+Repositorio para la materia de Nuevas Tecnologias.
 
 ## Integrantes
 
 - Alejandro Arroyave – Experto FullStack
 - Alejandro Gallego – Experto en JS
-- Ricardo Jimenez – Experto Análisis de Datos
+- Ricardo Jimenez – Experto Analisis de Datos
 
 ## Estructura del proyecto
 
@@ -15,32 +15,30 @@ Repositorio para la materia de Nuevas Tecnologías.
 ├── main.py                  # Punto de entrada principal
 ├── requirements.txt         # Dependencias
 ├── README.md                # Este archivo
-├── config/                  # Configuración global
-├── notebooks/               # Análisis y scripts exploratorios
-│   └── analisis.py
-└── src/                     # Código fuente
-    ├── simulacion/          # Generación de datos de prueba
-    │   ├── clientes.py
-    │   ├── clientes_erroneos.py
-    │   ├── productos.py
-    │   ├── usuarios.py
-    │   └── pedidos.py
-    ├── limpieza/            # Limpieza y validación de datos
-    │   └── limpieza.py
-    ├── descripcion/         # Descripción y análisis de datos
-    │   └── descripcion.py
-    └── api/                 # Consumo de APIs externas
-        └── consumo.py
+├── graficas/                # Imagenes PNG generadas
+├── config/                  # Configuracion global
+└── src/                     # Codigo fuente
+    ├── api/                 # Consumo de APIs y BD del backend
+    │   └── consumo_datos.py
+    └── visualizacion/       # Graficas y reportes visuales
+        └── graficas.py
 ```
 
-## Instalación
+## Dependencias
 
 ```bash
 pip install -r requirements.txt
 ```
+
+## Requisitos previos
+
+- Backend Java (`pos-restaurante`) corriendo en `localhost:8080`
+- SQL Server corriendo en `localhost:1433`
 
 ## Uso
 
 ```bash
 python main.py
 ```
+
+Esto carga los datos reales de las 4 tablas principales (Clientes, Productos, Usuarios, Ventas) y genera 2 graficas por cada una, guardandolas en la carpeta `graficas/`.

@@ -10,3 +10,6 @@ venv/
 # IDEs
 .vscode/
 .idea/
+
+# Outputs generados
+graficas/
